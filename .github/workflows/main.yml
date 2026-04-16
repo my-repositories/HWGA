@@ -1,0 +1,34 @@
+name: Update README Progress Table
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        working-directory: ./src
+        run: dotnet restore
+
+      - name: Build project
+        working-directory: ./src
+        run: dotnet build --configuration Release --no-restore
+
+      # - name: Run Readme Updater
+      #   run: |
+      #     cd src/tools/ReadmeUpdater
+      #     dotnet run
+      # - name: Commit and Push
+      #   uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: 'Automated: Update progress table in README.md'
+      #     file_pattern: README.md
