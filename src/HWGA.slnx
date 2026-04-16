@@ -1,5 +1,5 @@
 <Solution>
   <Folder Name="/app/">
-    <Project Path="app/HWGA.csproj/HWGA.csproj.csproj" />
+    <Project Path="app/HWGA.csproj" />
   </Folder>
 </Solution>
