@@ -1,6 +1,6 @@
-using HWGA.Interfaces;
+using HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
 
-namespace HWGA.Impl;
+namespace HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
 public class PrintStrategyFactory
 {

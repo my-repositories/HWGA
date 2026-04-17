@@ -1,4 +1,4 @@
-namespace HWGA.Interfaces;
+namespace HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
 
 public interface IPrintStrategy 
 { 

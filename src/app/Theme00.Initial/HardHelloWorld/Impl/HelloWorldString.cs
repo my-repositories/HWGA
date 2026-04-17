@@ -1,4 +1,4 @@
-namespace HWGA.Impl;
+namespace HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
 public class HelloWorldString(string? s)
 {

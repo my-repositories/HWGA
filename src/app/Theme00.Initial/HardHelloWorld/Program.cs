@@ -1,8 +1,8 @@
-namespace HWGA;
+namespace HWGA.Theme00.Initial.HardHelloWorld;
 
-using HWGA.Impl;
+using HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
-public class HelloWorld : BaseProgram
+public class HelloWorldProgram : BaseProgram
 {
     protected override async Task Run(string[] args = null)
     {
