@@ -7,6 +7,13 @@ public class HWGADbContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
 
+    public HWGADbContext() : base() {}
+    public HWGADbContext(DbContextOptions options) : base(options) {}
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseNpgsql("Host=localhost;Database=hwga;Username=cj;Password=HESOYAM");
+    {
+        if (!options.IsConfigured) {
+            options.UseNpgsql("Host=localhost;Database=hwga;Username=cj;Password=HESOYAM");
+        }
+    }
 }

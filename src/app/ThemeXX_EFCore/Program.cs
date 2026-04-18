@@ -10,7 +10,7 @@ public class EFCoreProgram : BaseProgram
         using var db = new HWGADbContext();
         await db.Database.MigrateAsync(); 
 
-        db.Users.Add(new User { Name = "Carl Johnson" });
+        await db.Users.AddAsync(new User { Name = "Carl Johnson" });
         await db.SaveChangesAsync();
 
         var users = await db.Users.AsNoTracking().ToListAsync();

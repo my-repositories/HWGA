@@ -2,4 +2,7 @@
   <Folder Name="/app/">
     <Project Path="app/HWGA.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HWGA.Tests.csproj" />
+  </Folder>
 </Solution>
