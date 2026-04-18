@@ -87,6 +87,10 @@ csx/
 AppPackages/
 
 # Others
+.env
+pg_data/
+postgres/
+.vscode/
 .idea/
 sql/
 *.Cache

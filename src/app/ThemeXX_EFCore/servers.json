@@ -1,0 +1,14 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "HWGA @ LA",
+            "Group": "Servers",
+            "Host": "hwgadb",
+            "Port": 5432,
+            "MaintenanceDB": "hwga",
+            "Username": "cj",
+            "SSLMode": "prefer",
+            "PassFile": "/tmp/pgpass"
+        }
+    }
+}
