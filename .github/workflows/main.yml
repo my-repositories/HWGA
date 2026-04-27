@@ -27,12 +27,12 @@ jobs:
         working-directory: ./src/tests
         run: dotnet test
 
-      # - name: Run Readme Updater
-      #   run: |
-      #     cd src/tools/ReadmeUpdater
-      #     dotnet run
-      # - name: Commit and Push
-      #   uses: stefanzweifel/git-auto-commit-action@v4
-      #   with:
-      #     commit_message: 'Automated: Update progress table in README.md'
-      #     file_pattern: README.md
+      - name: Run Readme Updater
+        run: |
+          cd src/tools/ReadmeUpdater
+          dotnet run
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Automated: Update progress table in README.md'
+          file_pattern: README.md

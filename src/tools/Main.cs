@@ -7,7 +7,7 @@ void UpdateTable(string filePath, string newTable)
     string pattern = @"(?<=<!-- PROGRESS_TABLE_START -->).*?(?=<!-- PROGRESS_TABLE_END -->)";
     string updatedContent = Regex.Replace(content, pattern, $"\n{newTable}\n", RegexOptions.Singleline);
 
-    File.WriteAllText("README2.md", updatedContent);
+    File.WriteAllText(filePath, updatedContent);
 }
 
 (int done, int total) GetTasksInfoByTheme(string level, string[] dirs)
@@ -37,8 +37,7 @@ string GetNewTable(string root)
 
     foreach(var theme in themeDirs)
     {
-        var themePath = Path.Combine(themesPath, theme);
-        var tasks = Directory.GetDirectories(themePath);
+        var tasks = Directory.GetDirectories(theme);
         var (easyDone, easyTotal) = GetTasksInfoByTheme("Easy", tasks);
         var (mediumDone, mediumTotal) = GetTasksInfoByTheme("Medium", tasks);
         var (hardDone, hardTotal) = GetTasksInfoByTheme("Hard", tasks);
@@ -53,7 +52,7 @@ string GetNewTable(string root)
         sb.AppendLine($"|{status}{allDone}/{allTotal}|");
     }
 
-    return sb.ToString();
+    return sb.ToString().TrimEnd();
 }
 
 string GetProjectRoot()
