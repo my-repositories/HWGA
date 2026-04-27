@@ -14,12 +14,7 @@
 |Тема|Easy|Medium|Hard|Status|
 |---|---|---|---|---|
 |Theme00.Initial|0/0|0/0|1/1|✅1/1|
-|Theme01.CLR|0/1|0/2|0/2|🟡0/5|
-|Theme02.TODO|3/3|2/2|1/1|✅6/6|
-|Theme03.TODO|0/0|1/1|4/4|✅5/5|
-|Theme04.TODO|1/1|2/4|0/0|🟡3/5|
-|Theme04.TODO|0/2|0/3|0/3|🟡0/8|
-|Theme05.TODO|1/1|1/1|2/2|✅4/4|
+|Theme01.CLR|1/1|0/2|0/2|🟡1/5|
 <!-- PROGRESS_TABLE_END -->
 
 Где:
