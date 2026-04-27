@@ -35,6 +35,8 @@ string GetNewTable(string root)
     var themeDirs = Directory.GetDirectories(themesPath)
         .Where(dir => dirRegex.IsMatch(Path.GetFileName(dir)));
 
+    sb.AppendLine("|Тема|Easy|Medium|Hard|Status|");
+    sb.AppendLine("|---|---|---|---|---|");
     foreach(var theme in themeDirs)
     {
         var tasks = Directory.GetDirectories(theme);

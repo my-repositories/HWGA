@@ -10,9 +10,9 @@
 * включает тесты для проверки корректности.
 
 ## Прогресс по темам
+<!-- PROGRESS_TABLE_START -->
 |Тема|Easy|Medium|Hard|Status|
 |---|---|---|---|---|
-<!-- PROGRESS_TABLE_START -->
 |Theme00.Initial|0/0|0/0|1/1|✅1/1|
 |Theme01.CLR|0/1|0/2|0/2|🟡0/5|
 |Theme02.TODO|3/3|2/2|1/1|✅6/6|
