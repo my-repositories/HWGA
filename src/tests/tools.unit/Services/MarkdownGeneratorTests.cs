@@ -45,7 +45,6 @@ public class MarkdownGeneratorTests
         var result = _sut.GenerateTable(themes, _levels);
 
         // Assert
-        // Ожидаем: | Theme01.Test | 1/1 | 0/2 | 0/0 | 🟡 1/3 |
         result.Should().Contain("| Theme01.Test | 1/1 | 0/2 | 0/0 | 🟡 1/3 |");
     }
 

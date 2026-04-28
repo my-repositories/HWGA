@@ -44,15 +44,12 @@ public class PrintStrategyFactoryTests
         var sut = PrintStrategyFactory.Instance;
         var mockStrategy = Substitute.For<IPrintStrategy>();
         
-        // Заставляем SetupPrinting вернуть -1 (или любой не 0)
         mockStrategy.SetupPrinting().Returns(new StatusCodeImplementation(-1));
 
         // Act
-        // Передаем наш мок в качестве перегрузки
         var action = () => sut.CreateIPrintStrategy(null, mockStrategy);
 
         // Assert
-        // ВОТ ОНО! Теперь мы точно попадем в throw
         action.Should().Throw<Exception>().WithMessage("Failed to initialize strategy");
     }
 

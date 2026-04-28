@@ -43,7 +43,6 @@ public class ProgramIntegrationTests : IDisposable
         // Assert
         var result = File.ReadAllText(_readmePath);
 
-        // Проверяем, что оркестрация сработала:
         result.Should().Contain("Theme01.CLR");
         result.Should().Contain("1/1");
         result.Should().Contain("✅");
