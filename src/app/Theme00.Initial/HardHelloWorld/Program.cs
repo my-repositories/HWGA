@@ -5,7 +5,7 @@ using HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
 public class HelloWorldProgram(TextWriter output) : BaseProgram(output)
 {
-    protected override async Task Run(string[] args = null)
+    protected override async Task Run(string[]? args = null)
     {
         var factory = HelloWorldFactory.Instance;
         var helloWorld = factory.CreateHelloWorld();

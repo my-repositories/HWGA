@@ -13,9 +13,9 @@ public abstract class BaseProgram : IProgram
 
     public async Task Start(string[]? args = null)
     {
-        string programName = GetType()!.FullName;
+        string? programName = GetType().FullName;
 
-        await Output.WriteLineAsync($"{System.Environment.NewLine}Run {programName}...");
+        await Output.WriteLineAsync($"{Environment.NewLine}Run {programName}...");
         try
         {
             await Run(args);            

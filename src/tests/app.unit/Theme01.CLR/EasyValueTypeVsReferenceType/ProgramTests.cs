@@ -9,5 +9,6 @@ public class ProgramTests
     {
         using var tw = TextWriter.Null;
         var program = new Program(tw);
+        await program.Start();
     }
 }
