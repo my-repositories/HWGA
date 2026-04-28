@@ -22,13 +22,18 @@ public class TaskScanner(ITaskResolutionStrategy strategy, string[] levels)
 
     private DifficultyStats GetStats(string themePath, string level)
     {
+        string themeName = Path.GetFileName(themePath);
         var taskDirs = Directory.GetDirectories(themePath)
             .Where(d => Path.GetFileName(d).StartsWith(level, StringComparison.OrdinalIgnoreCase))
             .ToList();
 
         return new DifficultyStats
         (
-            taskDirs.Count(d => strategy.IsResolved(d, Path.GetFileName(d))), 
+            taskDirs.Count(d =>
+            {
+                var taskName = Path.GetFileName(d);
+                return strategy.IsResolved(d, themeName, taskName);
+            }), 
             taskDirs.Count
         );
     }

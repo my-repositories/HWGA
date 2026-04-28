@@ -4,8 +4,8 @@ namespace HWGA.ReadmeUpdater.Strategies;
 
 public class AllRequirementsStrategy(params ITaskResolutionStrategy[] strategies) : ITaskResolutionStrategy
 {
-    public bool IsResolved(string taskDirectory, string taskName)
+    public bool IsResolved(string taskDirectory, string themeName, string taskName)
     {
-        return strategies.All(s => s.IsResolved(taskDirectory, taskName));
+        return strategies.All(s => s.IsResolved(taskDirectory, themeName, taskName));
     }
 }

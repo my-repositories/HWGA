@@ -6,7 +6,7 @@ public class FileExistenceStrategy(string extension) : ITaskResolutionStrategy
 {
     private readonly string _searchPattern = extension.StartsWith('.') ? $"*{extension}" : $"*.{extension}";
 
-    public bool IsResolved(string taskDirectory, string taskName) =>
+    public bool IsResolved(string taskDirectory, string themeName, string taskName) =>
         Directory.Exists(taskDirectory) && 
         Directory.EnumerateFiles(taskDirectory, _searchPattern, SearchOption.AllDirectories).Any();
 }
