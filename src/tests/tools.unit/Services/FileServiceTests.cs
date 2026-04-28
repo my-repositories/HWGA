@@ -62,11 +62,12 @@ public class FileServiceTests : IDisposable
     {
         // Act
         var root = FileService.FindProjectRoot("*.slnx");
+        var srcPath = Path.Combine(root, "src");
 
         // Assert
         root.Should().NotBeNullOrEmpty();
         Directory.Exists(root).Should().BeTrue();
-        Directory.GetFiles(root, "*.slnx").Should().NotBeEmpty();
+        Directory.GetFiles(srcPath, "*.slnx").Should().NotBeEmpty();
     }
 
     public void Dispose()
