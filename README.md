@@ -1,8 +1,8 @@
 # HWGA
 > HERE WE GO AGAIN — коллекция практических задач по C# и .NET с решениями и тестами.
 
-[![Main](https://github.com)](https://github.com)
-![Coverage](.github/assets/coverage.svg)
+[![Main](https://github.com/my-repositories/HWGA)](https://github.com/my-repositories/HWGA)
+![Coverage](.github/assets/coverage_badge.svg)
 
 
 ## Цель проекта
