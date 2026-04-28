@@ -1,4 +1,4 @@
-﻿namespace HWGA;
+﻿namespace HWGA.Core;
 
 public interface IProgram
 {

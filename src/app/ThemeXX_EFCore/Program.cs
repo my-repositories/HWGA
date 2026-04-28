@@ -1,9 +1,10 @@
+using HWGA.Core;
 using HWGA.ThemeXX_EFCore.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HWGA.ThemeXX_EFCore;
 
-public class EFCoreProgram : BaseProgram
+public class EFCoreProgram(TextWriter output) : BaseProgram(output)
 {
     protected override async Task Run(string[] args)
     {

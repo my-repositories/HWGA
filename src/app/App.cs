@@ -1,63 +1,65 @@
-﻿namespace HWGA;
+﻿using HWGA.Core;
+
+namespace HWGA;
 
 public class App
 {
     private readonly string[] _commandsForTerminate;
     private readonly IList<Type> _programTypesList;
+    private readonly Func<Type, IProgram> _factory;
+    private readonly TextWriter _output;
+    private readonly TextReader _input;
 
-    public App(string[] commandsForTerminate = null)
+    public App(ITypeProvider typeProvider, TextWriter output, TextReader input, string[] commandsForTerminate = null, Func<Type, IProgram> factory = null)
     {
+        _output = output;
+        _input = input;
         _commandsForTerminate = commandsForTerminate ?? ["quit", "exit"];
-        var interfaceType = typeof(IProgram);
-        _programTypesList = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(s => s.GetTypes())
-            .Where(p => interfaceType.IsAssignableFrom(p) && p is { IsClass: true, IsAbstract: false })
-            .ToList();
+        _programTypesList = typeProvider.GetProgramTypes();
+        _factory = factory ?? (t => (IProgram)Activator.CreateInstance(t, _output));
     }
     
     public async Task StartProgram(string programName)
     {
         if (!TryParseProgramName(programName, out var programType))
         {
-            Console.WriteLine("Incorrect id!");
+            await _output.WriteLineAsync("Incorrect id!");
         }
         
-        var program = (BaseProgram)Activator.CreateInstance(programType);
+        var program = _factory(programType);
         await program.Start();
     }
     
-    public string AskProgramName()
+    public async Task<string> AskProgramName()
     {
-        Console.WriteLine(System.Environment.NewLine + "Enter a number of program:");
-        PrintAllPrograms();
-        Console.WriteLine("Or type one of command to exit: " + string.Join(", ", _commandsForTerminate));
-        return Console.ReadLine()?.Trim().ToLower() ?? "";
+        await _output.WriteLineAsync(Environment.NewLine + "Enter a number of program:");
+        await PrintAllPrograms();
+        await _output.WriteLineAsync("Or type one of command to exit: " + string.Join(", ", _commandsForTerminate));
+        return _input.ReadLine()?.Trim().ToLower() ?? "";
     }
     
-    private void PrintAllPrograms()
+    private async Task PrintAllPrograms()
     {
         var programList = _programTypesList.ToList();
         for (int i = 0, length = programList.Count; i < length; ++i)
         {
-            Console.WriteLine($"{1 + i} - {programList[i]}");
+            await _output.WriteLineAsync($"{1 + i} - {programList[i]}");
         }
     }
     
-    private bool TryParseProgramName(string programName, out Type programType)
+    private bool TryParseProgramName(string name, out Type type)
     {
-        if (int.TryParse(programName, out var programNumber))
+        if (int.TryParse(name, out var num))
         {
-            if (programNumber < 0 || programNumber > _programTypesList.Count)
+            if (num < 1 || num > _programTypesList.Count)
             {
-                programType = null;
+                type = null;
                 return false;
             }
-
-            programType = _programTypesList[programNumber - 1];
+            type = _programTypesList[num - 1];
             return true;
         }
-        
-        programType = _programTypesList.FirstOrDefault(x => x.FullName.ToLower() == programName.ToLower());
-        return programType != null;
+        type = _programTypesList.FirstOrDefault(x => x.FullName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        return type != null;
     }
 }

@@ -1,13 +1,26 @@
-﻿using HWGA;
+﻿using HWGA.Core;
 
-string[] commandsForTerminate = { "0", "q", "e", "quit", "exit" };
-App app = new App(commandsForTerminate);
+namespace HWGA;
 
-string programName = app.AskProgramName();
-
-while (!commandsForTerminate.Contains(programName))
+public class Program
 {
-    Console.WriteLine("I want to start " + programName + "...");
-    app.StartProgram(programName);
-    programName = app.AskProgramName();
+    public static async Task Main(string[] args)
+    {
+        var commands = new[] { "0", "q", "e", "quit", "exit" };
+        var app = new App(new AssemblyTypeProvider(), Console.Out, Console.In, commands);
+        await new Program().Run(app, commands);
+    }
+
+    public async Task Run(App app, string[] commandsForTerminate)
+    {
+        string programName = await app.AskProgramName();
+
+        while (!commandsForTerminate.Contains(programName))
+        {
+            await app.StartProgram(programName);
+            programName = await app.AskProgramName();
+        }
+
+        Console.WriteLine("Goodbye!");
+    }
 }

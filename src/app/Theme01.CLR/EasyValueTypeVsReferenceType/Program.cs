@@ -1,24 +1,26 @@
+using HWGA.Core;
+
 namespace HWGA.Theme01.CLR.EasyValueTypeVsReferenceType;
 
-public class Program : BaseProgram
+public class Program(TextWriter output) : BaseProgram(output)
 {
     protected override async Task Run(string[] args = null)
     {
         var personClass = new PersonClass() { Age = 20 };
         var personStruct = new PersonStruct() { Age = 20 };
 
-        Console.WriteLine("Original:");
-        Dump(personClass, personStruct);
+        await Output.WriteLineAsync("Original:");
+        await Dump(personClass, personStruct);
 
         TryModifyPersonAge(personClass);
         TryModifyPersonAge(personStruct);
-        Console.WriteLine("After TryModifyPersonAge:");
-        Dump(personClass, personStruct);
+        await Output.WriteLineAsync("After TryModifyPersonAge:");
+        await Dump(personClass, personStruct);
 
         TryModifyPersonAgeByRef(ref personClass);
         TryModifyPersonAgeByRef(ref personStruct);
-        Console.WriteLine("After TryModifyPersonAgeByRef:");
-        Dump(personClass, personStruct);
+        await Output.WriteLineAsync("After TryModifyPersonAgeByRef:");
+        await Dump(personClass, personStruct);
     }
 
     public void TryModifyPersonAge(PersonClass personClass)
@@ -41,13 +43,13 @@ public class Program : BaseProgram
         personClass.Age = 42;
     }
 
-    private void Dump(PersonClass personClass, PersonStruct personStruct)
+    private async Task Dump(PersonClass personClass, PersonStruct personStruct)
     {
-        Console.WriteLine
+        await Output.WriteLineAsync
         (
             $"personClass.Age = {personClass.Age} \t | \t "
             + $"personStruct.Age = {personStruct.Age}"
         );
-        Console.WriteLine(new string('=', 42));
+        await Output.WriteLineAsync(new string('=', 42));
     }
 }
