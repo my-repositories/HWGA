@@ -26,6 +26,7 @@ public class PrintStrategyImplementation(Stream? outputStream = null) : IPrintSt
         {
             var output = $"{stringObj.GetHelloWorldString().GetHelloWorldString()}{Environment.NewLine}";
             _printStream?.Write(Encoding.UTF8.GetBytes(output));
+            _printStream?.Flush();
             return new StatusCodeImplementation(0);
         }
         catch
