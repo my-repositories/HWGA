@@ -18,7 +18,7 @@
 | Тема | Easy | Medium | Hard | Status |
 | :--- | :---: | :---: | :---: | :--- |
 | Theme00.Initial | 0/0 | 0/0 | 1/1 | ✅ 1/1 |
-| Theme01.CLR | 0/1 | 0/2 | 0/2 | 🟡 0/5 |
+| Theme01.CLR | 1/1 | 0/2 | 0/2 | 🟡 1/5 |
 <!-- PROGRESS_TABLE_END -->
 
 **Обозначения:**
