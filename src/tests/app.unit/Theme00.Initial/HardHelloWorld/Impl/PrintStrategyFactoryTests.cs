@@ -1,5 +1,8 @@
 using FluentAssertions;
+using HWGA.Tests;
 using HWGA.Theme00.Initial.HardHelloWorld.Impl;
+using HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
+using NSubstitute;
 
 namespace HWGA.Theme00.Initial.HardHelloWorld.Tests;
 
@@ -33,4 +36,24 @@ public class PrintStrategyFactoryTests
         // Assert
         status.StatusCode.Should().Be(0);
     }
+
+    [Fact]
+    public void CreateIPrintStrategy_ShouldThrow_WhenSetupReturnsError()
+    {
+        // Arrange
+        var sut = PrintStrategyFactory.Instance;
+        var mockStrategy = Substitute.For<IPrintStrategy>();
+        
+        // Заставляем SetupPrinting вернуть -1 (или любой не 0)
+        mockStrategy.SetupPrinting().Returns(new StatusCodeImplementation(-1));
+
+        // Act
+        // Передаем наш мок в качестве перегрузки
+        var action = () => sut.CreateIPrintStrategy(null, mockStrategy);
+
+        // Assert
+        // ВОТ ОНО! Теперь мы точно попадем в throw
+        action.Should().Throw<Exception>().WithMessage("Failed to initialize strategy");
+    }
+
 }

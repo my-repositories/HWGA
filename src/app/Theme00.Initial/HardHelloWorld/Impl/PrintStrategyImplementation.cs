@@ -1,17 +1,18 @@
-using System.Text;
 using HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
 
 namespace HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
-public class PrintStrategyImplementation(TextWriter? writer = null) : IPrintStrategy
+public class PrintStrategyImplementation(TextWriter? writer = null, Func<TextWriter>? consoleOutProvider = null) : IPrintStrategy
 {
     private TextWriter? _printStream = writer;
+    private readonly Func<TextWriter> _consoleOutProvider = consoleOutProvider ?? (() => Console.Out);
+
 
     public IStatusCode SetupPrinting()
     {
         try
         {
-            _printStream ??= Console.Out;
+            _printStream ??= _consoleOutProvider();
             return new StatusCodeImplementation(0);
         }
         catch

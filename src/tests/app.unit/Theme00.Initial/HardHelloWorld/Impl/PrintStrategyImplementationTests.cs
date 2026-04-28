@@ -2,7 +2,7 @@ using NSubstitute;
 using FluentAssertions;
 using HWGA.Theme00.Initial.HardHelloWorld.Impl;
 using HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
-using System.Text;
+using HWGA.Tests;
 
 namespace HWGA.Theme00.Initial.HardHelloWorld.Tests;
 
@@ -80,16 +80,6 @@ public class PrintStrategyImplementationTests
         result.StatusCode.Should().Be(0); 
     }
 
-    private class FaultyWriter : TextWriter
-    {
-        // TextWriter требует реализации Encoding
-        public override Encoding Encoding => Encoding.UTF8;
-
-        // Перехватываем запись строки и кидаем ошибку
-        public override void Write(string? value) => throw new IOException("Disk full");
-        public override void WriteLine(string? value) => throw new IOException("Disk full");
-    }
-
     [Fact]
     public void Print_ShouldCatchException_AndReturnNegativeStatus_OnWriteFailure()
     {
@@ -121,6 +111,21 @@ public class PrintStrategyImplementationTests
 
         // Act
         var result = sut.Print(mockStringObj);
+
+        // Assert
+        result.StatusCode.Should().Be(-1);
+    }
+
+    [Fact]
+    public void SetupPrinting_ShouldReturnErrorStatus_WhenProviderThrows()
+    {
+        // Arrange
+        var sut = new PrintStrategyImplementation(
+            writer: null, 
+            consoleOutProvider: () => throw new Exception("Fake Error"));
+
+        // Act
+        var result = sut.SetupPrinting();
 
         // Assert
         result.StatusCode.Should().Be(-1);
