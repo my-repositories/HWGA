@@ -66,13 +66,11 @@ jobs:
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
       - name: Generate HTML Report
-        # Используем установленный глобальный инструмент
-        # Параметр -reports ищет рекурсивно во всех скачанных папках
         run: |
           reportgenerator \
             -reports:"coverage-results/**/*.xml" \
             -targetdir:"coveragereport" \
-            -reporttypes:"HtmlCheckered;Badges"
+            -reporttypes:"Html;Badges"
 
       - name: Upload Final Report
         uses: actions/upload-artifact@v4
