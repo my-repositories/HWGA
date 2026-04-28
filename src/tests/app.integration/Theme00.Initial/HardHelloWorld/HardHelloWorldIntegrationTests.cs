@@ -13,14 +13,14 @@ public class HardHelloWorldIntegrationTests
         // 1. Arrange
         var factory = HelloWorldFactory.Instance;
         var helloWorld = factory.CreateHelloWorld();
-        using var outputStream = new MemoryStream();
+        using var outputStream = new StringWriter();
         var strategy = new PrintStrategyImplementation(outputStream);
         
         // 2. Act
         var setupStatus = strategy.SetupPrinting();
         var messageObj = helloWorld.GetHelloWorld();
         var printStatus = helloWorld.Print(strategy, messageObj);
-        var resultText = Encoding.UTF8.GetString(outputStream.ToArray());
+        var resultText = outputStream.ToString();
 
         // 3. Assert
         setupStatus.StatusCode.Should().Be(0);

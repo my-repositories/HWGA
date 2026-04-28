@@ -3,15 +3,15 @@ using HWGA.Theme00.Initial.HardHelloWorld.Interfaces;
 
 namespace HWGA.Theme00.Initial.HardHelloWorld.Impl;
 
-public class PrintStrategyImplementation(Stream? outputStream = null) : IPrintStrategy
+public class PrintStrategyImplementation(TextWriter? writer = null) : IPrintStrategy
 {
-    private Stream? _printStream = outputStream;
+    private TextWriter? _printStream = writer;
 
     public IStatusCode SetupPrinting()
     {
         try
         {
-            _printStream ??= Console.OpenStandardOutput();
+            _printStream ??= Console.Out;
             return new StatusCodeImplementation(0);
         }
         catch
@@ -25,7 +25,7 @@ public class PrintStrategyImplementation(Stream? outputStream = null) : IPrintSt
         try
         {
             var output = $"{stringObj.GetHelloWorldString().GetHelloWorldString()}{Environment.NewLine}";
-            _printStream?.Write(Encoding.UTF8.GetBytes(output));
+            _printStream?.Write(output);
             _printStream?.Flush();
             return new StatusCodeImplementation(0);
         }

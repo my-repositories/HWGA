@@ -13,11 +13,12 @@ public class ProgramTests
         var mockApp = Substitute.For<IApp>();
         var commands = new[] { "exit" };
         var sut = new Program();
+        using var sw = new StringWriter();
 
         mockApp.AskProgramName().Returns("1", "exit");
 
         // 2. Act
-        await sut.Run(mockApp, commands);
+        await sut.Run(mockApp, sw, commands);
 
         // 3. Assert
         await mockApp.Received(1).StartProgram("1");
@@ -31,11 +32,12 @@ public class ProgramTests
         var mockApp = Substitute.For<IApp>();
         var commands = new[] { "quit" };
         var sut = new Program();
+        using var sw = new StringWriter();
 
         mockApp.AskProgramName().Returns("quit");
 
         // Act
-        await sut.Run(mockApp, commands);
+        await sut.Run(mockApp, sw, commands);
 
         // Assert
         await mockApp.DidNotReceive().StartProgram(Arg.Any<string>());

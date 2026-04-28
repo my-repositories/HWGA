@@ -12,8 +12,8 @@ public class PrintStrategyImplementationTests
     public void SetupPrinting_ShouldReturnSuccess_WhenStreamIsAvailable()
     {
         // Arrange
-        using var ms = new MemoryStream();
-        var sut = new PrintStrategyImplementation(ms);
+        using var sw = new StringWriter();
+        var sut = new PrintStrategyImplementation(sw);
 
         // Act
         var result = sut.SetupPrinting();
@@ -45,8 +45,8 @@ public class PrintStrategyImplementationTests
     public void Print_ShouldWriteDataCorrectly_IncludingNewLine(string? input)
     {
         // Arrange
-        using var ms = new MemoryStream();
-        var sut = new PrintStrategyImplementation(ms);
+        using var sw = new StringWriter();
+        var sut = new PrintStrategyImplementation(sw);
         sut.SetupPrinting();
 
         var mockStringObj = Substitute.For<IHelloWorldString>();
@@ -60,7 +60,7 @@ public class PrintStrategyImplementationTests
 
         // Assert
         result.StatusCode.Should().Be(0);
-        var actualOutput = Encoding.UTF8.GetString(ms.ToArray());
+        var actualOutput = sw.ToString();
         actualOutput.Should().Be(expectedOutput);
     }
 
@@ -80,22 +80,22 @@ public class PrintStrategyImplementationTests
         result.StatusCode.Should().Be(0); 
     }
 
-    private class FaultyStream : MemoryStream
+    private class FaultyWriter : TextWriter
     {
-        public override void Write(ReadOnlySpan<byte> buffer) 
-            => throw new IOException("Disk full");
-        
-        public override void Write(byte[] buffer, int offset, int count) 
-            => throw new IOException("Disk full");
+        // TextWriter требует реализации Encoding
+        public override Encoding Encoding => Encoding.UTF8;
+
+        // Перехватываем запись строки и кидаем ошибку
+        public override void Write(string? value) => throw new IOException("Disk full");
+        public override void WriteLine(string? value) => throw new IOException("Disk full");
     }
 
     [Fact]
     public void Print_ShouldCatchException_AndReturnNegativeStatus_OnWriteFailure()
     {
         // Arrange
-        using var faultyStream = new FaultyStream();
-
-        var sut = new PrintStrategyImplementation(faultyStream);
+        using var faultyWriter = new FaultyWriter();
+        var sut = new PrintStrategyImplementation(faultyWriter);
         sut.SetupPrinting();
 
         var mockStringObj = Substitute.For<IHelloWorldString>();
@@ -112,8 +112,8 @@ public class PrintStrategyImplementationTests
     public void Print_ShouldReturnError_WhenGetHelloWorldStringReturnsNull()
     {
         // Arrange
-        using var ms = new MemoryStream();
-        var sut = new PrintStrategyImplementation(ms);
+        using var ws = new StringWriter();
+        var sut = new PrintStrategyImplementation(ws);
         sut.SetupPrinting();
 
         var mockStringObj = Substitute.For<IHelloWorldString>();

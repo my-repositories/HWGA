@@ -10,7 +10,7 @@ public class HelloWorldProgram(TextWriter output) : BaseProgram(output)
         var factory = HelloWorldFactory.Instance;
         var helloWorld = factory.CreateHelloWorld();
         
-        if (helloWorld.Print(helloWorld.GetPrintStrategy(), helloWorld.GetHelloWorld()) is { StatusCode: not 0 } err)
+        if (helloWorld.Print(helloWorld.GetPrintStrategy(output), helloWorld.GetHelloWorld()) is { StatusCode: not 0 } err)
         {
             throw new Exception($"Failed to print: {err.StatusCode}");
         }
