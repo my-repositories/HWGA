@@ -17,17 +17,17 @@ public class BaseProgramTests
 
     private class SuccessProgram(TextWriter output) : BaseProgram(output)
     {
-        protected override Task Run(string[] args) => Task.CompletedTask;
+        protected override Task Run(string[]? args) => Task.CompletedTask;
     }
 
     private class FailingProgram(TextWriter output) : BaseProgram(output)
     {
-        protected override Task Run(string[] args) => throw new InvalidOperationException("Boom!");
+        protected override Task Run(string[]? args) => throw new InvalidOperationException("Boom!");
     }
 
     private class AsyncProgram(TextWriter output) : BaseProgram(output)
     {
-        protected override async Task Run(string[] args)
+        protected override async Task Run(string[]? args)
         {
             await Task.Delay(100);
             await Output.WriteLineAsync("WorkInProgress");

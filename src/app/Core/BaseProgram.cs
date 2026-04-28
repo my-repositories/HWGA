@@ -9,11 +9,11 @@ public abstract class BaseProgram : IProgram
         Output = output;
     }
 
-    protected abstract Task Run(string[] args);
+    protected abstract Task Run(string[]? args);
 
-    public async Task Start(string[] args = null)
+    public async Task Start(string[]? args = null)
     {
-        string programName = this.GetType().FullName;
+        string programName = GetType()!.FullName;
 
         await Output.WriteLineAsync($"{System.Environment.NewLine}Run {programName}...");
         try

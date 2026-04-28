@@ -10,7 +10,7 @@ public class App : IApp
     private readonly TextWriter _output;
     private readonly TextReader _input;
 
-    public App(ITypeProvider typeProvider, TextWriter output, TextReader input, string[] commandsForTerminate = null, Func<Type, IProgram> factory = null)
+    public App(ITypeProvider typeProvider, TextWriter output, TextReader input, string[]? commandsForTerminate = null, Func<Type, IProgram>? factory = null)
     {
         _output = output;
         _input = input;
@@ -48,7 +48,7 @@ public class App : IApp
         }
     }
     
-    private bool TryParseProgramName(string name, out Type type)
+    private bool TryParseProgramName(string name, out Type? type)
     {
         if (int.TryParse(name, out var num))
         {
@@ -60,7 +60,7 @@ public class App : IApp
             type = _programTypesList[num - 1];
             return true;
         }
-        type = _programTypesList.FirstOrDefault(x => x.FullName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        type = _programTypesList.FirstOrDefault(x => x!.FullName!.Equals(name, StringComparison.OrdinalIgnoreCase));
         return type != null;
     }
 }

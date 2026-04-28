@@ -22,7 +22,7 @@ public class ProgramTests
 
         // 3. Assert
         await mockApp.Received(1).StartProgram("1");
-        mockApp.Received(2).AskProgramName();
+        await mockApp.Received(2).AskProgramName();
     }
 
     [Fact]

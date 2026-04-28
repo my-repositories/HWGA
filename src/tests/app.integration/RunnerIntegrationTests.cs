@@ -65,7 +65,7 @@ public class RunnerIntegrationTests
 
     public class ExplodingProgram(TextWriter output) : BaseProgram(output)
     {
-        protected override Task Run(string[] args) => throw new Exception("KABOOM!");
+        protected override Task Run(string[]? args) => throw new Exception("KABOOM!");
     }
 
     [Fact]

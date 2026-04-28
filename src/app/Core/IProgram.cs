@@ -2,5 +2,5 @@
 
 public interface IProgram
 {
-    Task Start(string[] args = null);
+    Task Start(string[]? args = null);
 }

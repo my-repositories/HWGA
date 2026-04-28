@@ -4,7 +4,7 @@ namespace HWGA.Theme01.CLR.EasyValueTypeVsReferenceType;
 
 public class Program(TextWriter output) : BaseProgram(output)
 {
-    protected override async Task Run(string[] args = null)
+    protected override async Task Run(string[]? args = null)
     {
         var personClass = new PersonClass() { Age = 20 };
         var personStruct = new PersonStruct() { Age = 20 };
