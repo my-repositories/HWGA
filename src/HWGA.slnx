@@ -3,8 +3,10 @@
     <Project Path="app/HWGA.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/app.unit/HWGA.Tests.Unit.csproj" />
     <Project Path="tests/app.integration/HWGA.Tests.Integration.csproj" />
+    <Project Path="tests/app.unit/HWGA.Tests.Unit.csproj" />
+    <Project Path="tests/tools.integration/ReadmeUpdater.Integration.csproj" />
+    <Project Path="tests/tools.unit/ReadmeUpdater.Unit.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/ReadmeUpdater.csproj" />
