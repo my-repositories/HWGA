@@ -25,7 +25,7 @@ public class RunnerIntegrationTests
         using var reader = new StringReader($"{targetIndex}{Environment.NewLine}exit{Environment.NewLine}");
         
         var app = new App(provider, sw, reader, ["exit"]);
-        var programRunner = new Program();
+        var programRunner = new MainProgram();
 
         // 2. Act
         await programRunner.Run(app, sw, ["exit"]);
@@ -49,7 +49,7 @@ public class RunnerIntegrationTests
         using var reader = new StringReader($"abc{Environment.NewLine}999{Environment.NewLine}exit{Environment.NewLine}");
         
         var app = new App(provider, sw, reader, ["exit"]);
-        var sut = new Program();
+        var sut = new MainProgram();
 
         // Act
         await sut.Run(app, sw, ["exit"]);
@@ -79,7 +79,7 @@ public class RunnerIntegrationTests
         using var reader = new StringReader($"1{Environment.NewLine}exit{Environment.NewLine}");
         
         var app = new App(provider, sw, reader, ["exit"]);
-        var sut = new Program();
+        var sut = new MainProgram();
 
         // Act
         await sut.Run(app, sw, ["exit"]);

@@ -2,14 +2,14 @@
 
 namespace HWGA;
 
-public class Program
+public class MainProgram
 {
     public static async Task Main(string[] args)
     {
         var output = Console.Out;
         var commands = new[] { "0", "q", "e", "quit", "exit" };
         var app = new App(new AssemblyTypeProvider(), output, Console.In, commands);
-        await new Program().Run(app, output, commands);
+        await new MainProgram().Run(app, output, commands);
     }
 
     public async Task Run(IApp app, TextWriter? output, string[] commandsForTerminate)

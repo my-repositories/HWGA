@@ -12,7 +12,7 @@ public class ProgramTests
         // 1. Arrange
         var mockApp = Substitute.For<IApp>();
         var commands = new[] { "exit" };
-        var sut = new Program();
+        var sut = new MainProgram();
         using var sw = new StringWriter();
 
         mockApp.AskProgramName().Returns("1", "exit");
@@ -31,7 +31,7 @@ public class ProgramTests
         // Arrange
         var mockApp = Substitute.For<IApp>();
         var commands = new[] { "quit" };
-        var sut = new Program();
+        var sut = new MainProgram();
         using var sw = new StringWriter();
 
         mockApp.AskProgramName().Returns("quit");
