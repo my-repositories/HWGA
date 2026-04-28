@@ -9,7 +9,7 @@ jobs:
   test-matrix:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false 
+      fail-fast: false
       matrix:
         test-project: [
           "src/tests/app.unit/HWGA.Tests.Unit.csproj",
@@ -26,9 +26,46 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Restore dependencies
-        working-directory: ./src
-        run: dotnet restore
+      - name: Restore
+        run: dotnet restore src/HWGA.slnx
 
-      - name: Run Tests
-        run: dotnet test ${{ matrix.test-project }} --configuration Release --no-restore
+      - name: Run Tests with Coverage
+        # /p:CollectCoverage=true включает сбор метрик
+        # /p:CoverletOutputFormat=cobertura генерирует стандартный формат отчета
+        run: |
+          dotnet test ${{ matrix.test-project }} \
+          --configuration Release --no-restore \
+          /p:CollectCoverage=true \
+          /p:CoverletOutputFormat=cobertura \
+          /p:CoverletOutput=./TestResults/
+
+      # Загружаем "сырые" результаты как артефакты (временно)
+      - name: Upload Raw Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-coverage-${{ strategy.job-index }}
+          path: "**/TestResults/coverage.cobertura.xml"
+
+  publish-report:
+    needs: test-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all coverage
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage-results
+
+      - name: Generate HTML Report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.11
+        with:
+          reports: 'coverage-results/**/*.xml'
+          targetdir: 'coveragereport'
+          reporttypes: 'HtmlCheckered;Badges'
+
+      - name: Upload Final Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-coverage-report
+          path: coveragereport
