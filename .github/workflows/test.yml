@@ -86,5 +86,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .github/assets/coverage_badge.svg
+          git pull
           git commit -m "Update coverage badge" || exit 0
           git push
