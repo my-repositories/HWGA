@@ -2,7 +2,7 @@
 > HERE WE GO AGAIN — коллекция практических задач по C# и .NET с решениями и тестами.
 
 [![Main](https://github.com/my-repositories/HWGA/actions/workflows/main.yml/badge.svg)](https://github.com/my-repositories/HWGA/actions/workflows/main.yml)
-![Coverage](.github/assets/coverage_badge.svg)
+[![Coverage](.github/assets/coverage_badge.svg)](https://my-repositories.github.io/HWGA/)
 
 
 ## Цель проекта
