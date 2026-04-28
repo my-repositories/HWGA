@@ -4,7 +4,7 @@ using HWGA.ReadmeUpdater.Models;
 
 namespace HWGA.ReadmeUpdater.Services;
 
-public class TaskScanner(ITaskResolutionStrategy strategy, string[] levels)
+public class TaskScanner(ITaskResolutionStrategy strategy, string[] levels) : ITaskScanner
 {
     private static readonly Regex ThemeRegex = new(@"Theme\d+\..+", RegexOptions.Compiled);
 

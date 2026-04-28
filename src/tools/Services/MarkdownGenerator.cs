@@ -1,11 +1,12 @@
 using System.Text;
+using HWGA.ReadmeUpdater.Abstractions;
 using HWGA.ReadmeUpdater.Models;
 
 namespace HWGA.ReadmeUpdater.Services;
 
-public class MarkdownGenerator(string[] levels)
+public class MarkdownGenerator() : IMarkdownGenerator
 {
-    public string GenerateTable(IEnumerable<ThemeProgress> themes)
+    public string GenerateTable(IEnumerable<ThemeProgress> themes, string[] levels)
     {
         var sb = new StringBuilder();
         sb.Append("| Тема | ").AppendJoin(" | ", levels).AppendLine(" | Status |");

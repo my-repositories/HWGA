@@ -11,7 +11,7 @@ public class MarkdownGeneratorTests
 
     public MarkdownGeneratorTests()
     {
-        _sut = new MarkdownGenerator(_levels);
+        _sut = new MarkdownGenerator();
     }
 
     [Fact]
@@ -21,7 +21,7 @@ public class MarkdownGeneratorTests
         var themes = Enumerable.Empty<ThemeProgress>();
 
         // Act
-        var result = _sut.GenerateTable(themes);
+        var result = _sut.GenerateTable(themes, _levels);
 
         // Assert
         var lines = result.Split(Environment.NewLine);
@@ -42,7 +42,7 @@ public class MarkdownGeneratorTests
         var themes = new[] { new ThemeProgress("Theme01.Test", stats) };
 
         // Act
-        var result = _sut.GenerateTable(themes);
+        var result = _sut.GenerateTable(themes, _levels);
 
         // Assert
         // Ожидаем: | Theme01.Test | 1/1 | 0/2 | 0/0 | 🟡 1/3 |
@@ -62,7 +62,7 @@ public class MarkdownGeneratorTests
         var themes = new[] { new ThemeProgress("Theme02.Done", stats) };
 
         // Act
-        var result = _sut.GenerateTable(themes);
+        var result = _sut.GenerateTable(themes, _levels);
 
         // Assert
         result.Should().Contain("✅ 3/3");
@@ -72,7 +72,7 @@ public class MarkdownGeneratorTests
     public void GenerateTable_ShouldHandleEmptyThemes()
     {
         // Act
-        var result = _sut.GenerateTable(Enumerable.Empty<ThemeProgress>());
+        var result = _sut.GenerateTable(Enumerable.Empty<ThemeProgress>(), _levels);
 
         // Assert
         result.Should().NotBeNullOrEmpty();

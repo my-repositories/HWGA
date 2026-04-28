@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
+using HWGA.ReadmeUpdater.Abstractions;
 
 namespace HWGA.ReadmeUpdater.Services;
 
-public class FileService
+public class FileService : IFileService
 {
     private static readonly Regex TableRegex = new(
         @"(?<=<!-- PROGRESS_TABLE_START -->).*?(?=<!-- PROGRESS_TABLE_END -->)", 
