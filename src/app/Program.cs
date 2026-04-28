@@ -11,7 +11,7 @@ public class Program
         await new Program().Run(app, commands);
     }
 
-    public async Task Run(App app, string[] commandsForTerminate)
+    public async Task Run(IApp app, string[] commandsForTerminate)
     {
         string programName = await app.AskProgramName();
 

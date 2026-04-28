@@ -2,7 +2,7 @@
 
 namespace HWGA;
 
-public class App
+public class App : IApp
 {
     private readonly string[] _commandsForTerminate;
     private readonly IList<Type> _programTypesList;
@@ -24,6 +24,7 @@ public class App
         if (!TryParseProgramName(programName, out var programType))
         {
             await _output.WriteLineAsync("Incorrect id!");
+            return;
         }
         
         var program = _factory(programType);
