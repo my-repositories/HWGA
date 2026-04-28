@@ -3,11 +3,11 @@ using HWGA.ReadmeUpdater.Strategies;
 
 var root = FileService.FindProjectRoot("*.slnx");
 var taskLevels = new string[] { "Easy", "Medium", "Hard" };
-var testsPath = Path.Combine(root, "src", "tests");
+var unitTestsPath = Path.Combine(root, "src", "tests", "app.unit");
 
 var hasCode = new FileExistenceStrategy("cs");
-var hasTests = new TestExistenceStrategy(testsPath);
-var complexStrategy = new AllRequirementsStrategy(hasCode, hasTests);
+var hasUnitTests = new TestExistenceStrategy(unitTestsPath);
+var complexStrategy = new AllRequirementsStrategy(hasCode, hasUnitTests);
 var scanner = new TaskScanner(complexStrategy, taskLevels);
 var generator = new MarkdownGenerator(taskLevels);
 

@@ -13,7 +13,6 @@ View the raw content of this file to understand the format.
 ### In Progress
 - [ ] Покрытие тестами. Настройте генерацию отчёта о покрытии (например, через coverlet) и публикуйте его в артефактах Actions или на Coveralls.
 
-
 ### Done ✓
 - [x] Work on Github ISSUE #1  
 - [x] docs: Таблица прогресса README
