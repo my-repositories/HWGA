@@ -36,6 +36,7 @@ jobs:
           dotnet test ${{ matrix.test-project }} \
           --configuration Release --no-restore \
           /p:CollectCoverage=true \
+          /p:ExcludeByFile="**/Migrations/*.cs" \
           /p:CoverletOutputFormat=cobertura \
           /p:CoverletOutput=./TestResults/
 
