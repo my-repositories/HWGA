@@ -1,9 +1,8 @@
-name: Main
+name: Update README Progress Table
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -19,6 +18,10 @@ jobs:
         working-directory: ./src
         run: dotnet restore
 
-      - name: Build project
-        working-directory: ./src
-        run: dotnet build --configuration Release --no-restore
+      - name: Run Readme Updater
+        run: dotnet run --project src/tools/ReadmeUpdater.csproj
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Automated: Update progress table in README.md'
+          file_pattern: README.md

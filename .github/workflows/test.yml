@@ -1,0 +1,34 @@
+name: (Tests) Unit + Integration
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false 
+      matrix:
+        test-project: [
+          "src/tests/app.unit/HWGA.Tests.Unit.csproj",
+          "src/tests/app.integration/HWGA.Tests.Integration.csproj",
+          "src/tests/tools.unit/ReadmeUpdater.Unit.csproj",
+          "src/tests/tools.integration/ReadmeUpdater.Integration.csproj"
+        ]
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        working-directory: ./src
+        run: dotnet restore
+
+      - name: Run Tests
+        run: dotnet test ${{ matrix.test-project }} --configuration Release --no-restore
