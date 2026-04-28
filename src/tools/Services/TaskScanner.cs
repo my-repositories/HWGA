@@ -17,7 +17,8 @@ public class TaskScanner(ITaskResolutionStrategy strategy, string[] levels)
             .Where(dir => ThemeRegex.IsMatch(Path.GetFileName(dir)))
             .Select(themePath => new ThemeProgress(
                 Path.GetFileName(themePath),
-                levels.ToDictionary(l => l, l => GetStats(themePath, l))));
+                levels.ToDictionary(l => l, l => GetStats(themePath, l))))
+            .OrderBy(t => t.Name);
     }
 
     private DifficultyStats GetStats(string themePath, string level)
