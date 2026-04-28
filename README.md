@@ -1,6 +1,10 @@
 # HWGA
 > HERE WE GO AGAIN — коллекция практических задач по C# и .NET с решениями и тестами.
 
+[![Main](https://github.com)](https://github.com)
+![Coverage](.github/assets/coverage.svg)
+
+
 ## Цель проекта
 Собрать структурированную коллекцию учебных задач.
 

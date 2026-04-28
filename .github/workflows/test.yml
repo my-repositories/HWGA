@@ -77,3 +77,14 @@ jobs:
         with:
           name: final-coverage-report
           path: coveragereport
+
+      - name: Update Coverage Badge in README
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p .github/assets
+          cp coveragereport/badge_linecoverage.svg .github/assets/coverage_badge.svg
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .github/assets/coverage_badge.svg
+          git commit -m "Update coverage badge" || exit 0
+          git push
